@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Santosh's Blog</title>
+  </head>
+  <body>
+    <section id="main_container">
+      <h1>Santosh's blog</h1>
+      <button id="dark_mode_button" onclick="toggleDarkMode()">
+        Enable Dark Mode
+      </button>
+    </section>
+    <style>
+      body {
+        padding: 1rem;
+        transition: background-color 1.5s;
+      }
+      title {
+        text-align: center;
+      }
+      section#main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      button#dark_mode_button {
+        padding: 1rem;
+        background-color: #fff;
+        color: #000;
+        font-weight: 900;
+        border: 1px solid #000;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 1.5s, color 0.5s, border 0.5s;
+      }
+      /* iPads (portrait and landscape) ----------- */
+      @media only screen and (min-device-width: 768px) {
+        /* Styles */
+        body {
+          width: 600px;
+          margin: auto;
+          padding: 1rem;
+        }
+      }
+    </style>
+    <script>
+      function toggleDarkMode() {
+        var dark_mode_button = document.querySelector(
+          "button#dark_mode_button"
+        );
+        var updated_dark_mode =
+          dark_mode_button.innerHTML
+            .replace(/^\s+/gim, "")
+            .replace(/\s+$/, "") === "Enable Dark Mode";
+        dark_mode_button.innerHTML = updated_dark_mode
+          ? "Disable Dark Mode"
+          : "Enable Dark Mode";
+        dark_mode_button.style.backgroundColor = updated_dark_mode
+          ? "#000"
+          : "#FFF";
+        var body = document.querySelector("body");
+        body.style.backgroundColor = updated_dark_mode ? "#000" : "#FFF";
+      }
+    </script>
+  </body>
+</html>
