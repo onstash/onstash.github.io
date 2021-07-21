@@ -1,15 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <!-- HTML Meta Tags -->
+    <title>SV's Blog</title>
+    <meta
+      name="description"
+      content="Santosh Venkatraman is trying to describe his empty blog here"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Santosh's Blog</title>
-  </head>
-  <body>
-    <section id="main_container">
-      <h1>Santosh's blog</h1>
-      <button id="dark_mode_button" onclick="toggleDarkMode()">
-        Enable Dark Mode
-      </button>
-    </section>
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://onstash.surge.sh/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SV's Blog" />
+    <meta
+      property="og:description"
+      content="Santosh Venkatraman is trying to describe his empty blog here"
+    />
+    <meta property="og:image" content="https://onstash.surge.sh/tehc.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="onstash.surge.sh" />
+    <meta property="twitter:url" content="https://onstash.surge.sh/" />
+    <meta name="twitter:title" content="SV's Blog" />
+    <meta
+      name="twitter:description"
+      content="Santosh Venkatraman is trying to describe his empty blog here"
+    />
+    <meta name="twitter:image" content="https://onstash.surge.sh/tehc.png" />
+    <!-- Styles -->
     <style>
       body {
         padding: 1rem;
@@ -25,14 +45,17 @@
       }
       button#dark_mode_button {
         padding: 1rem;
-        background-color: #fff;
-        color: #000;
         font-weight: 900;
-        border: 1px solid #000;
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 1.5s, color 0.5s, border 0.5s;
+        background-color: #000;
+        color: #fff;
+        border: 1px solid #fff;
+        transition: background-color 1.5s, color 0.5s, border 0.5s,
+          transform 0.5s;
+        font-size: 16px;
       }
+
       /* iPads (portrait and landscape) ----------- */
       @media only screen and (min-device-width: 768px) {
         /* Styles */
@@ -42,7 +65,28 @@
           padding: 1rem;
         }
       }
+      a.card_link {
+        text-decoration: none;
+        color: #000;
+        padding: 16px;
+        border: 1px solid #000;
+        border-radius: 4px;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      @media (hover: hover) {
+        button#dark_mode_button:hover {
+          background-color: #fff;
+          color: #000;
+          border: 1px solid #000;
+          transform: scale(1.1);
+        }
+        a.card_link:hover {
+          transform: scale(1.1);
+        }
+      }
     </style>
+    <!-- Script -->
     <script>
       function toggleDarkMode() {
         var dark_mode_button = document.querySelector(
@@ -55,12 +99,28 @@
         dark_mode_button.innerHTML = updated_dark_mode
           ? "Disable Dark Mode"
           : "Enable Dark Mode";
-        dark_mode_button.style.backgroundColor = updated_dark_mode
-          ? "#000"
-          : "#FFF";
         var body = document.querySelector("body");
         body.style.backgroundColor = updated_dark_mode ? "#000" : "#FFF";
       }
     </script>
+  </head>
+  <body>
+    <section id="main_container">
+      <h1>Santosh Venkatraman's Blog</h1>
+      <button id="dark_mode_button" onclick="toggleDarkMode()">
+        Enable Dark Mode
+      </button>
+      <div style="margin-top: 16px"></div>
+      <a class="card_link" href="/concept-blog-post-stories">
+        <section class="card">
+          <h2>Concept: Blog Post as Stories</h2>
+          <p>
+            This is a concept I had in mind a few years ago - What if news
+            stories were presented in Stories format? I have tried the same with
+            Blog Posts. This v1 alpha version.
+          </p>
+        </section>
+      </a>
+    </section>
   </body>
 </html>
