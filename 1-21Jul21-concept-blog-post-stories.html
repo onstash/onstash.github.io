@@ -45,6 +45,7 @@
       title {
         text-align: center;
       }
+
       /* iPads (portrait and landscape) ----------- */
       @media only screen and (min-device-width: 768px) {
         /* Styles */
@@ -89,23 +90,35 @@
         font-size: 18px;
       }
 
-      @keyframes progress_bar_animation {
-        from {
-          width: 0%;
-        }
-        to {
-          width: 100%;
-        }
-      }
-
       section.story_container {
         width: 360px;
         height: 100vh;
       }
+
+      section#overlay_left {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: inherit;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      section#overlay_right {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: inherit;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
     </style>
     <!-- Script -->
     <script>
-      let activeIndex = 0;
       const posts = [
         {
           content:
@@ -125,8 +138,18 @@
           content: "Next obvious question is - how do I configure subdomains?",
         },
       ];
+      let activeIndex = 0;
       let progressBars = document.querySelectorAll("div.progress_bar");
       let storyContainer = document.querySelector("section.story_container");
+      const storyTouchTypes = {
+        next: "next",
+        previous: "previous",
+      };
+      let progressBarAnimationTimeout = null;
+      let progressBarsCount = null;
+      let progressBarWidth = null;
+      let progressBarInterval = null;
+      let progressBarIntervalCount = 0;
 
       function calculateReadingTime({ text }) {
         const wpm = 225;
@@ -135,40 +158,101 @@
         return time <= 10 ? 10 : time;
       }
 
-      function startProgressBarAnimation({ index, next = false }) {
+      function pauseProgressBarAnimation() {
+        progressBarAnimationTimeout &&
+          clearTimeout(progressBarAnimationTimeout);
+        progressBarInterval && clearInterval(progressBarInterval);
+        progressBarAnimationTimeout = setTimeout(() => {
+          const index = activeIndex;
+          progressBars[index].style.animationPlayState = "paused";
+        }, 200);
+      }
+
+      function continueProgressBarAnimation(storyTouchType) {
+        progressBarAnimationTimeout &&
+          clearTimeout(progressBarAnimationTimeout);
+        const index =
+          storyTouchType === storyTouchTypes.next
+            ? activeIndex + 1
+            : storyTouchType === storyTouchTypes.previous
+            ? activeIndex - 1
+            : activeIndex;
+        if (index !== activeIndex && index >= 0 && index < progressBarsCount) {
+          progressBars[activeIndex].style.width =
+            storyTouchType === storyTouchTypes.next ? "100%" : "0%";
+          activeIndex = index;
+          progressBarIntervalCount = 0;
+        }
+        startProgressBarAnimation({ next: true });
+      }
+
+      function startProgressBarAnimation({ next = false }) {
+        const index = activeIndex;
         if (!progressBars?.length) {
           progressBars = document.querySelectorAll("div.progress_bar");
         }
         if (!storyContainer) {
           storyContainer = document.querySelector("section.story_container");
         }
+        if (progressBarsCount === null) {
+          progressBarsCount = progressBars.length;
+        }
+
         storyContainer.innerHTML = `<section class="content_container"><p class="content">${posts[index].content}</p></section>`;
-        const progressBarsCount = progressBars.length;
         const progressBarAnimationDuration = calculateReadingTime({
           text: posts[index].content,
         });
-        progressBars[index].onanimationend = () => {
-          progressBars[index].style.width = "100%";
-          if (next && index + 1 < progressBarsCount) {
-            activeIndex = index + 1;
-            startProgressBarAnimation({
-              index: activeIndex,
-              next: true,
-            });
+        const progressBar = progressBars[index];
+        let count = 1;
+        const intervalCounts =
+          (progressBarAnimationDuration * 1000) / progressBarWidth -
+          progressBarIntervalCount;
+        progressBars[index].style.width = `${progressBarIntervalCount}%`;
+        progressBarInterval = setInterval(() => {
+          progressBars[index].style.width = `${progressBarIntervalCount}%`;
+          progressBarIntervalCount += 1;
+          if (progressBarIntervalCount === 100) {
+            clearInterval(progressBarInterval);
+            progressBarIntervalCount = 0;
+            if (index + 1 < progressBarsCount) {
+              activeIndex = index + 1;
+              startProgressBarAnimation({
+                next: true,
+              });
+            }
           }
-        };
-        progressBars[
-          index
-        ].style.animation = `progress_bar_animation ${progressBarAnimationDuration}s`;
+        }, intervalCounts);
       }
 
       function loadPosts() {
+        const overlayLeft = document.querySelector("section#overlay_left");
+        function pause(ev) {
+          ev.preventDefault();
+          console.log("ontouchstart overlay_left");
+          pauseProgressBarAnimation();
+        }
+        const play = (storyTouchType) => (ev) => {
+          ev.preventDefault();
+          console.log("onmouseup overlay_left");
+          continueProgressBarAnimation(storyTouchType);
+        };
+        overlayLeft.ontouchstart = pause;
+        overlayLeft.ontouchend = play("previous");
+        overlayLeft.onmousedown = pause;
+        overlayLeft.onmouseup = play("previous");
+
+        const overlayRight = document.querySelector("section#overlay_right");
+        overlayRight.ontouchstart = pause;
+        overlayRight.ontouchend = play("next");
+        overlayRight.onmousedown = pause;
+        overlayRight.onmouseup = play("next");
+
         const progressBarsListContainer = document.querySelector(
           "section#progress_bars_list_container"
         );
         const lastIndex = posts.length - 1;
         const screenWidth = 360 - 32;
-        const progressBarWidth = screenWidth / posts.length;
+        progressBarWidth = screenWidth / posts.length;
         posts.forEach((post, index) => {
           const progressBarBackground = document.createElement("div");
 
@@ -186,8 +270,12 @@
           progressBarsListContainer.appendChild(progressBarBackground);
         });
 
+        if (!storyContainer) {
+          storyContainer = document.querySelector("section.story_container");
+        }
+        storyContainer.innerHTML = `<section class="content_container"><p class="content">${posts[activeIndex].content}</p></section>`;
+
         startProgressBarAnimation({
-          index: activeIndex,
           next: true,
         });
       }
@@ -200,6 +288,8 @@
         <section id="progress_bars_list_container"></section>
         <div style="margin-top: 16px"></div>
         <section class="story_container"></section>
+        <section id="overlay_left"></section>
+        <section id="overlay_right"></section>
       </section>
     </section>
   </body>
