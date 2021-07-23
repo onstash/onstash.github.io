@@ -143,11 +143,14 @@
         next: "next",
         previous: "previous",
       };
-      let progressBarAnimationTimeout = null;
-      let progressBarsCount = null;
-      let progressBarWidth = null;
-      let progressBarInterval = null;
-      let progressBarIntervalCount = 0;
+      const progressBarProps = {
+        count: -1,
+        width: 0,
+        idOfSetInterval: 0,
+        setIntervalIterationCount: 0,
+        longPressSetTimeout: null,
+        longPressId: null,
+      };
 
       function calculateReadingTime({ text }) {
         const wpm = 225;
@@ -157,30 +160,37 @@
       }
 
       function pauseProgressBarAnimation() {
-        progressBarAnimationTimeout &&
-          clearTimeout(progressBarAnimationTimeout);
-        progressBarInterval && clearInterval(progressBarInterval);
-        progressBarAnimationTimeout = setTimeout(() => {
-          const index = activeIndex;
-          progressBars[index].style.animationPlayState = "paused";
-        }, 200);
+        progressBarProps.idOfSetInterval &&
+          clearInterval(progressBarProps.idOfSetInterval);
+        progressBarProps.longPressSetTimeout = setTimeout(() => {
+          progressBarProps.longPressId = 1;
+        }, 500);
       }
 
       function continueProgressBarAnimation(storyTouchType) {
-        progressBarAnimationTimeout &&
-          clearTimeout(progressBarAnimationTimeout);
-        const index =
-          storyTouchType === storyTouchTypes.next
-            ? activeIndex + 1
-            : storyTouchType === storyTouchTypes.previous
-            ? activeIndex - 1
-            : activeIndex;
-        if (index !== activeIndex && index >= 0 && index < progressBarsCount) {
-          progressBars[activeIndex].style.width =
-            storyTouchType === storyTouchTypes.next ? "100%" : "0%";
-          activeIndex = index;
-          progressBarIntervalCount = 0;
+        progressBarProps.longPressSetTimeout &&
+          clearTimeout(progressBarProps.longPressSetTimeout);
+        let index = 0 + activeIndex;
+        if (progressBarProps.longPressId) {
+          progressBarProps.longPressId = null;
+        } else {
+          if (storyTouchType === storyTouchTypes.next) {
+            index = activeIndex + 1;
+          } else if (storyTouchType === storyTouchTypes.previous) {
+            index = activeIndex - 1;
+          }
+          if (
+            index !== activeIndex &&
+            index >= 0 &&
+            index < progressBarProps.count
+          ) {
+            progressBars[activeIndex].style.width =
+              storyTouchType === storyTouchTypes.next ? "100%" : "0%";
+            activeIndex = index;
+            progressBarProps.setIntervalIterationCount = 0;
+          }
         }
+
         startProgressBarAnimation({ next: true });
       }
 
@@ -193,8 +203,8 @@
         if (!storyContainer) {
           storyContainer = document.querySelector("section.story_container");
         }
-        if (progressBarsCount === null) {
-          progressBarsCount = progressBars.length;
+        if (progressBarProps.count === -1) {
+          progressBarProps.count = progressBars.length;
         }
 
         storyContainer.innerHTML = `<section class="content_container"><p class="content">${posts[index].content}</p></section>`;
@@ -204,16 +214,20 @@
         const progressBar = progressBars[index];
         let count = 1;
         const intervalCounts =
-          (progressBarAnimationDuration * 1000) / progressBarWidth -
-          progressBarIntervalCount;
-        progressBars[index].style.width = `${progressBarIntervalCount}%`;
-        progressBarInterval = setInterval(() => {
-          progressBars[index].style.width = `${progressBarIntervalCount}%`;
-          progressBarIntervalCount += 1;
-          if (progressBarIntervalCount === 100) {
-            clearInterval(progressBarInterval);
-            progressBarIntervalCount = 0;
-            if (index + 1 < progressBarsCount) {
+          (progressBarAnimationDuration * 1000) / progressBarProps.width -
+          progressBarProps.setIntervalIterationCount;
+        progressBars[
+          index
+        ].style.width = `${progressBarProps.setIntervalIterationCount}%`;
+        progressBarProps.idOfSetInterval = setInterval(() => {
+          progressBars[
+            index
+          ].style.width = `${progressBarProps.setIntervalIterationCount}%`;
+          progressBarProps.setIntervalIterationCount += 1;
+          if (progressBarProps.setIntervalIterationCount === 100) {
+            clearInterval(progressBarProps.idOfSetInterval);
+            progressBarProps.setIntervalIterationCount = 0;
+            if (index + 1 < progressBarProps.count) {
               activeIndex = index + 1;
               startProgressBarAnimation({
                 next: true,
@@ -264,7 +278,7 @@
         );
         const lastIndex = posts.length - 1;
         const screenWidth = 360 - 32;
-        progressBarWidth = screenWidth / posts.length;
+        progressBarProps.width = screenWidth / posts.length;
         posts.forEach((post, index) => {
           const progressBarBackground = document.createElement("div");
 
@@ -272,7 +286,7 @@
             "class",
             "progress_bar_background"
           );
-          progressBarBackground.style.width = `${progressBarWidth}px`;
+          progressBarBackground.style.width = `${progressBarProps.width}px`;
 
           const progressBar = document.createElement("div");
           progressBar.setAttribute("class", "progress_bar");
