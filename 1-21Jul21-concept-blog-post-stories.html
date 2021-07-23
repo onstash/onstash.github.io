@@ -103,7 +103,6 @@
         width: 50%;
         height: inherit;
         z-index: 999;
-        background-color: rgba(0, 0, 0, 0.1);
       }
 
       section#overlay_right {
@@ -114,7 +113,6 @@
         width: 50%;
         height: inherit;
         z-index: 999;
-        background-color: rgba(0, 0, 0, 0.1);
       }
     </style>
     <!-- Script -->
@@ -188,6 +186,7 @@
 
       function startProgressBarAnimation({ next = false }) {
         const index = activeIndex;
+        window.location.hash = `#story${index + 1}`;
         if (!progressBars?.length) {
           progressBars = document.querySelectorAll("div.progress_bar");
         }
@@ -224,7 +223,20 @@
         }, intervalCounts);
       }
 
-      function loadPosts() {
+      function onPageLoad() {
+        const storyStartPosition =
+          window.location.hash && window.location.hash.startsWith("#story")
+            ? parseInt(window.location.hash.split("story")[1])
+            : null;
+        console.log("@santosh", storyStartPosition);
+        if (
+          typeof storyStartPosition === "number" &&
+          storyStartPosition >= 0 &&
+          storyStartPosition <= posts.length
+        ) {
+          activeIndex = storyStartPosition - 1;
+        }
+
         const overlayLeft = document.querySelector("section#overlay_left");
         function pause(ev) {
           ev.preventDefault();
@@ -265,6 +277,9 @@
           const progressBar = document.createElement("div");
           progressBar.setAttribute("class", "progress_bar");
           progressBar.setAttribute("id", `progress_bar_${index}`);
+          if (index < activeIndex) {
+            progressBar.style.width = "100%";
+          }
           progressBarBackground.appendChild(progressBar);
 
           progressBarsListContainer.appendChild(progressBarBackground);
@@ -281,7 +296,7 @@
       }
     </script>
   </head>
-  <body onload="loadPosts()">
+  <body onload="onPageLoad()">
     <section id="main_container">
       <h1>Concept: Blog Post as Stories</h1>
       <section id="stories_container">
