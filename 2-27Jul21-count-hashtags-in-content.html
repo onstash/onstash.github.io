@@ -63,43 +63,42 @@
         flex-direction: column;
         align-items: center;
       }
+      h6#last_updated {
+        color: #666;
+        padding: 0;
+        margin: 0;
+        font-weight: 300;
+        margin-left: 10vw;
+      }
       textarea#content {
         padding: 1rem;
         width: 100%;
         height: 10vh;
-        border: 1px solid #38ac52;
+        border: 1px solid #000;
         border-radius: 4px;
-        outline-color: #38ac52;
-      }
-      button#count_hashtags {
-        padding: 1rem;
-        background-color: #38ac52;
-        color: #fff;
-        font-weight: 900;
-        border: 1px solid #38ac52;
-        border-radius: 4px;
+        outline-color: #000;
       }
 
       section#hashtags_insights {
         padding: 1rem;
-        border: 1px solid #38ac52;
+        border: 1px solid #000;
         border-radius: 4px;
+        opacity: 0;
+        transition: opacity 800ms;
       }
       h2#hashtags_recommended_instagram {
         font-weight: 900;
         font-size: 18px;
-        color: #38ac52;
+        color: #000;
       }
     </style>
   </head>
-  <body onload="onLoad()">
+  <body>
     <section id="main_container">
-      <h1>Count Hashtags in Your Content</h1>
-      <textarea id="content" autofocus></textarea>
-      <div style="margin-top: 10px"></div>
-      <button id="count_hashtags" onclick="countHashtags()">
-        COUNT HASHTAGS
-      </button>
+      <h1 id="title">Count Hashtags in Your Content</h1>
+      <h6 id="last_updated">Last Updated: 3rd August 2021</h6>
+      <div style="margin-top: 16px"></div>
+      <textarea id="content" autofocus oninput="countHashtags()"></textarea>
       <div style="margin-top: 10px"></div>
       <section id="hashtags_insights">
         <h2 id="hashtags_recommended_instagram"></h2>
@@ -109,28 +108,35 @@
     <!-- Script -->
     <script>
       const INSTAGRAM_RECOMMENDED_LIMIT = 30;
-      const onLoad = () =>
-        (document.querySelector(
-          "h2#hashtags_recommended_instagram"
-        ).innerText = `RECOMMENDED HASHTAGS FOR INSTAGRAM: ${INSTAGRAM_RECOMMENDED_LIMIT}`);
-
+      const hashtagsInsights = document.querySelector(
+        "section#hashtags_insights"
+      );
+      const hashtagsRecommendedInstagram = document.querySelector(
+        "h2#hashtags_recommended_instagram"
+      );
+      let recommendedHashtagsLoaded = false;
       const countHashtags = () => {
+        if (!recommendedHashtagsLoaded) {
+          hashtagsRecommendedInstagram.innerText = `RECOMMENDED HASHTAGS FOR INSTAGRAM: ${INSTAGRAM_RECOMMENDED_LIMIT}`;
+          recommendedHashtagsLoaded = true;
+        }
         const content = document.querySelector("textarea#content").value;
-        const count = content.split(/\s+/gim).filter((x) => x.startsWith("#"))
-          .length;
+        if (!content) {
+          hashtagsInsights.style.opacity = "0";
+          return;
+        }
+        hashtagsInsights.style.opacity = "1";
+        const count = content
+          .split(/\s+/gim)
+          .filter((x) => x.startsWith("#"))
+          .filter((x) => x.length > 1).length;
 
         const contentHashtags = document.querySelector("h3#content_hashtags");
         contentHashtags.innerText = `HASHTAGS IN YOUR CONTENT: ${count}`;
         if (count <= INSTAGRAM_RECOMMENDED_LIMIT) {
-          contentHashtags.style.color = "#38ac52";
-          window.confirm(
-            "Good job! Hashtags count are within the Instagram recommendation!"
-          );
+          contentHashtags.style.color = "#000";
         } else if (count >= 0 && count > INSTAGRAM_RECOMMENDED_LIMIT) {
           contentHashtags.style.color = "red";
-          window.alert(
-            "Oh ho! Hashtags count exceeding the Instagram recommendation!"
-          );
         }
       };
     </script>
