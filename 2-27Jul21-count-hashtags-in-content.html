@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- HTML Meta Tags -->
+    <title>SV's Blog</title>
+    <meta
+      name="description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https://onstash.github.io/2-27Jul21-count-hashtags-in-content"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Concept: Blog Post as Stories" />
+    <meta
+      property="og:description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta property="og:image" content="https://onstash.github.io/tehc.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="onstash.surge.sh" />
+    <meta
+      property="twitter:url"
+      content="https://onstash.github.io/2-27Jul21-count-hashtags-in-content"
+    />
+    <meta name="twitter:title" content="SV's Blog" />
+    <meta
+      name="twitter:description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta name="twitter:image" content="https://onstash.github.io/tehc.png" />
+
+    <!-- Styles -->
+    <style>
+      body {
+        padding: 16px;
+        transition: background-color 1.5s;
+      }
+      title {
+        text-align: center;
+      }
+      h1 {
+        text-decoration: underline;
+      }
+
+      /* iPads (portrait and landscape) ----------- */
+      @media only screen and (min-device-width: 768px) {
+        /* Styles */
+        body {
+          width: 360px;
+          margin: auto;
+          padding: 16px;
+        }
+      }
+      section#main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      textarea#content {
+        padding: 1rem;
+        width: 100%;
+        height: 10vh;
+        border: 1px solid #38ac52;
+        border-radius: 4px;
+        outline-color: #38ac52;
+      }
+      button#count_hashtags {
+        padding: 1rem;
+        background-color: #38ac52;
+        color: #fff;
+        font-weight: 900;
+        border: 1px solid #38ac52;
+        border-radius: 4px;
+      }
+
+      section#hashtags_insights {
+        padding: 1rem;
+        border: 1px solid #38ac52;
+        border-radius: 4px;
+      }
+      h2#hashtags_recommended_instagram {
+        font-weight: 900;
+        font-size: 18px;
+        color: #38ac52;
+      }
+    </style>
+  </head>
+  <body onload="onLoad()">
+    <section id="main_container">
+      <h1>Count Hashtags in Your Content</h1>
+      <textarea id="content" autofocus></textarea>
+      <div style="margin-top: 10px"></div>
+      <button id="count_hashtags" onclick="countHashtags()">
+        COUNT HASHTAGS
+      </button>
+      <div style="margin-top: 10px"></div>
+      <section id="hashtags_insights">
+        <h2 id="hashtags_recommended_instagram"></h2>
+        <h3 id="content_hashtags"></h3>
+      </section>
+    </section>
+    <!-- Script -->
+    <script>
+      const INSTAGRAM_RECOMMENDED_LIMIT = 30;
+      const onLoad = () =>
+        (document.querySelector(
+          "h2#hashtags_recommended_instagram"
+        ).innerText = `RECOMMENDED HASHTAGS FOR INSTAGRAM: ${INSTAGRAM_RECOMMENDED_LIMIT}`);
+
+      const countHashtags = () => {
+        const content = document.querySelector("textarea#content").value;
+        const count = content.split(/\s+/gim).filter((x) => x.startsWith("#"))
+          .length;
+
+        const contentHashtags = document.querySelector("h3#content_hashtags");
+        contentHashtags.innerText = `HASHTAGS IN YOUR CONTENT: ${count}`;
+        if (count <= INSTAGRAM_RECOMMENDED_LIMIT) {
+          contentHashtags.style.color = "#38ac52";
+          window.confirm(
+            "Good job! Hashtags count are within the Instagram recommendation!"
+          );
+        } else if (count >= 0 && count > INSTAGRAM_RECOMMENDED_LIMIT) {
+          contentHashtags.style.color = "red";
+          window.alert(
+            "Oh ho! Hashtags count exceeding the Instagram recommendation!"
+          );
+        }
+      };
+    </script>
+  </body>
+</html>

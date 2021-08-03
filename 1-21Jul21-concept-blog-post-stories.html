@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- HTML Meta Tags -->
+    <title>SV's Blog</title>
+    <meta
+      name="description"
+      content="I thought of this idea a few years: Blog Post as Stories"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https://onstash.surge.sh1-21Jul21-concept-blog-post-stories"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Concept: Blog Post as Stories" />
+    <meta
+      property="og:description"
+      content="I thought of this idea a few years: Blog Post as Stories"
+    />
+    <meta property="og:image" content="https://onstash.github.io/tehc.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="onstash.surge.sh" />
+    <meta
+      property="twitter:url"
+      content="https://onstash.surge.sh1-21Jul21-concept-blog-post-stories"
+    />
+    <meta name="twitter:title" content="SV's Blog" />
+    <meta
+      name="twitter:description"
+      content="I thought of this idea a few years: Blog Post as Stories"
+    />
+    <meta name="twitter:image" content="https://onstash.github.io/tehc.png" />
+
+    <!-- Styles -->
+    <style>
+      body {
+        padding: 16px;
+        transition: background-color 1.5s;
+      }
+      title {
+        text-align: center;
+      }
+
+      /* iPads (portrait and landscape) ----------- */
+      @media only screen and (min-device-width: 768px) {
+        /* Styles */
+        body {
+          width: 360px;
+          margin: auto;
+          padding: 16px;
+        }
+      }
+      section#main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      section#stories_container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      section#progress_bars_list_container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      div.progress_bar_background {
+        height: 2px;
+        background-color: #ccc;
+      }
+      div.progress_bar {
+        width: 0%;
+        height: 2px;
+        background-color: #000;
+      }
+      section.content_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      p.content {
+        font-size: 18px;
+      }
+
+      section.story_container {
+        width: 360px;
+        height: 100vh;
+      }
+
+      section#overlay_left {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: inherit;
+        z-index: 999;
+      }
+
+      section#overlay_right {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: inherit;
+        z-index: 999;
+      }
+    </style>
+    <!-- Script -->
+    <script>
+      const posts = [
+        {
+          content:
+            "A few years when I was working with Tenreads/crisp, I had this idea - News Stories - News in Stories format. Now I am extending that concept into Blog Posts in Stories format.",
+        },
+        {
+          content: `My reasoning is based on the currently popular UI to consume content - Instagram Stories, WhatsApp Status, even Facebook Story. And the fact that I can open up a story and it's an automatic slideshow which means I don't need to interact. The standard blogging format is vertical and it expects the users to scroll up and down.`,
+        },
+        {
+          content:
+            "If the intial story isn't a hook that's pulling you to view the rest of stories, then it can be understood by metrics I believe. This forces the writer to improve the quality of different content sections presented to the user.",
+        },
+        {
+          content:
+            "Even if I want to read last parts of the story, I can quickly tap and move on",
+        },
+        {
+          content:
+            "And yes, Pressbait (Clickbait by News publishers as well Clickbait for mobile phones* :P), will be rampant",
+        },
+      ];
+      let activeIndex = 0;
+      let progressBars = document.querySelectorAll("div.progress_bar");
+      let storyContainer = document.querySelector("section.story_container");
+      const storyTouchTypes = {
+        next: "next",
+        previous: "previous",
+      };
+      const progressBarProps = {
+        count: -1,
+        width: 0,
+        idOfSetInterval: 0,
+        setIntervalIterationCount: 0,
+        longPressSetTimeout: null,
+        longPressId: null,
+      };
+
+      function calculateReadingTime({ text }) {
+        const wpm = 100;
+        const words = text.trim().split(/\s+/).length;
+        const time = Math.ceil(words / wpm);
+        return time <= 10 ? 10 : time;
+      }
+
+      function pauseProgressBarAnimation() {
+        progressBarProps.idOfSetInterval &&
+          clearInterval(progressBarProps.idOfSetInterval);
+        progressBarProps.longPressSetTimeout = setTimeout(() => {
+          progressBarProps.longPressId = 1;
+        }, 500);
+      }
+
+      function continueProgressBarAnimation(storyTouchType) {
+        progressBarProps.longPressSetTimeout &&
+          clearTimeout(progressBarProps.longPressSetTimeout);
+        let index = 0 + activeIndex;
+        if (progressBarProps.longPressId) {
+          progressBarProps.longPressId = null;
+        } else {
+          if (storyTouchType === storyTouchTypes.next) {
+            index = activeIndex + 1;
+          } else if (storyTouchType === storyTouchTypes.previous) {
+            index = activeIndex - 1;
+          }
+          if (
+            index !== activeIndex &&
+            index >= 0 &&
+            index < progressBarProps.count
+          ) {
+            progressBars[activeIndex].style.width =
+              storyTouchType === storyTouchTypes.next ? "100%" : "0%";
+            activeIndex = index;
+            progressBarProps.setIntervalIterationCount = 0;
+          }
+        }
+
+        startProgressBarAnimation({ next: true });
+      }
+
+      function startProgressBarAnimation({ next = false }) {
+        const index = activeIndex;
+        window.location.hash = `#story${index + 1}`;
+        if (!progressBars?.length) {
+          progressBars = document.querySelectorAll("div.progress_bar");
+        }
+        if (!storyContainer) {
+          storyContainer = document.querySelector("section.story_container");
+        }
+        if (progressBarProps.count === -1) {
+          progressBarProps.count = progressBars.length;
+        }
+
+        storyContainer.innerHTML = `<section class="content_container"><p class="content">${posts[index].content}</p></section>`;
+        const progressBarAnimationDuration = calculateReadingTime({
+          text: posts[index].content,
+        });
+        const progressBar = progressBars[index];
+        let count = 1;
+        const intervalCounts =
+          (progressBarAnimationDuration * 1000) / progressBarProps.width -
+          progressBarProps.setIntervalIterationCount;
+        progressBars[
+          index
+        ].style.width = `${progressBarProps.setIntervalIterationCount}%`;
+        progressBarProps.idOfSetInterval = setInterval(() => {
+          progressBars[
+            index
+          ].style.width = `${progressBarProps.setIntervalIterationCount}%`;
+          progressBarProps.setIntervalIterationCount += 1;
+          if (progressBarProps.setIntervalIterationCount === 100) {
+            clearInterval(progressBarProps.idOfSetInterval);
+            progressBarProps.setIntervalIterationCount = 0;
+            if (index + 1 < progressBarProps.count) {
+              activeIndex = index + 1;
+              startProgressBarAnimation({
+                next: true,
+              });
+            }
+          }
+        }, intervalCounts);
+      }
+
+      function onPageLoad() {
+        const storyStartPosition =
+          window.location.hash && window.location.hash.startsWith("#story")
+            ? parseInt(window.location.hash.split("story")[1])
+            : null;
+        console.log("@santosh", storyStartPosition);
+        if (
+          typeof storyStartPosition === "number" &&
+          storyStartPosition >= 0 &&
+          storyStartPosition <= posts.length
+        ) {
+          activeIndex = storyStartPosition - 1;
+        }
+
+        const overlayLeft = document.querySelector("section#overlay_left");
+        function pause(ev) {
+          ev.preventDefault();
+          console.log("ontouchstart overlay_left");
+          pauseProgressBarAnimation();
+        }
+        const play = (storyTouchType) => (ev) => {
+          ev.preventDefault();
+          console.log("onmouseup overlay_left");
+          continueProgressBarAnimation(storyTouchType);
+        };
+        overlayLeft.ontouchstart = pause;
+        overlayLeft.ontouchend = play("previous");
+        overlayLeft.onmousedown = pause;
+        overlayLeft.onmouseup = play("previous");
+
+        const overlayRight = document.querySelector("section#overlay_right");
+        overlayRight.ontouchstart = pause;
+        overlayRight.ontouchend = play("next");
+        overlayRight.onmousedown = pause;
+        overlayRight.onmouseup = play("next");
+
+        const progressBarsListContainer = document.querySelector(
+          "section#progress_bars_list_container"
+        );
+        const lastIndex = posts.length - 1;
+        const screenWidth = 360 - 32;
+        progressBarProps.width = screenWidth / posts.length;
+        posts.forEach((post, index) => {
+          const progressBarBackground = document.createElement("div");
+
+          progressBarBackground.setAttribute(
+            "class",
+            "progress_bar_background"
+          );
+          progressBarBackground.style.width = `${progressBarProps.width}px`;
+
+          const progressBar = document.createElement("div");
+          progressBar.setAttribute("class", "progress_bar");
+          progressBar.setAttribute("id", `progress_bar_${index}`);
+          if (index < activeIndex) {
+            progressBar.style.width = "100%";
+          }
+          progressBarBackground.appendChild(progressBar);
+
+          progressBarsListContainer.appendChild(progressBarBackground);
+        });
+
+        if (!storyContainer) {
+          storyContainer = document.querySelector("section.story_container");
+        }
+        storyContainer.innerHTML = `<section class="content_container"><p class="content">${posts[activeIndex].content}</p></section>`;
+
+        startProgressBarAnimation({
+          next: true,
+        });
+      }
+    </script>
+  </head>
+  <body onload="onPageLoad()">
+    <section id="main_container">
+      <h1>Concept: Blog Post as Stories</h1>
+      <section id="stories_container">
+        <section id="progress_bars_list_container"></section>
+        <div style="margin-top: 16px"></div>
+        <section class="story_container"></section>
+        <section id="overlay_left"></section>
+        <section id="overlay_right"></section>
+      </section>
+    </section>
+  </body>
+</html>
