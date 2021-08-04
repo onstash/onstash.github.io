@@ -110,12 +110,6 @@
         }
       }
       h2#last_updated.dark_mode {
-        font-size: 12px;
-        text-align: right;
-        margin-top: -20px;
-        color: #666;
-        font-size: 14px;
-        font-weight: 300;
         animation: fadeOutAnimation ease 1s;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
@@ -136,7 +130,9 @@
         cursor: pointer;
         background-color: #000;
         color: #fff;
-        transition: background-color 1.5s, color 0.5s;
+        border: none;
+        transition: background-color 1.5s, color 0.5s, border 0.5s,
+          transform 0.5s;
         font-size: 16px;
       }
 
