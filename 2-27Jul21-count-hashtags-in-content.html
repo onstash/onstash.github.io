@@ -41,7 +41,19 @@
       name="twitter:image"
       content="https://onstash.github.io/hellothere.jpeg"
     />
-
+  </head>
+  <body>
+    <section id="main_container">
+      <h1 id="title">Count Hashtags in Your Content</h1>
+      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
+      <div style="margin-top: 16px"></div>
+      <textarea id="content" autofocus oninput="countHashtags()"></textarea>
+      <div style="margin-top: 10px"></div>
+      <section id="hashtags_insights">
+        <h2 id="hashtags_recommended_instagram"></h2>
+        <h3 id="content_hashtags"></h3>
+      </section>
+    </section>
     <!-- Styles -->
     <style>
       body {
@@ -99,19 +111,6 @@
         color: #000;
       }
     </style>
-  </head>
-  <body>
-    <section id="main_container">
-      <h1 id="title">Count Hashtags in Your Content</h1>
-      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
-      <div style="margin-top: 16px"></div>
-      <textarea id="content" autofocus oninput="countHashtags()"></textarea>
-      <div style="margin-top: 10px"></div>
-      <section id="hashtags_insights">
-        <h2 id="hashtags_recommended_instagram"></h2>
-        <h3 id="content_hashtags"></h3>
-      </section>
-    </section>
     <!-- Script -->
     <script>
       const INSTAGRAM_RECOMMENDED_LIMIT = 30;

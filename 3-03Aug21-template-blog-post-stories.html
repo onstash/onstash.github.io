@@ -38,7 +38,20 @@
       name="twitter:image"
       content="https://onstash.github.io/hellothere.jpeg"
     />
-
+  </head>
+  <body onload="onPageLoad()">
+    <section id="main_container">
+      <h1>Template: Blog Post as Stories</h1>
+      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
+      <div style="margin-top: 16px"></div>
+      <section id="stories_container">
+        <section id="progress_bars_list_container"></section>
+        <div style="margin-top: 16px"></div>
+        <section class="story_container"></section>
+        <section id="overlay_left"></section>
+        <section id="overlay_right"></section>
+      </section>
+    </section>
     <!-- Styles -->
     <style>
       body {
@@ -334,18 +347,5 @@
         });
       }
     </script>
-  </head>
-  <body onload="onPageLoad()">
-    <section id="main_container">
-      <h1>Template: Blog Post as Stories</h1>
-      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
-      <section id="stories_container">
-        <section id="progress_bars_list_container"></section>
-        <div style="margin-top: 16px"></div>
-        <section class="story_container"></section>
-        <section id="overlay_left"></section>
-        <section id="overlay_right"></section>
-      </section>
-    </section>
   </body>
 </html>
