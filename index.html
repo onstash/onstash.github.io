@@ -40,6 +40,14 @@
         Enable Dark Mode
       </button>
       <div style="margin-top: 16px"></div>
+      <a class="card_link" href="/4-04Aug21-asmr-submit-button-animation">
+        <section class="card">
+          <h2>4. ASMR Submit Button Animation</h2>
+          <h6 id="last_updated">Last Updated: 4th August 2021</h6>
+          <p>The Only Template to convert Your Blog Post as Stories</p>
+        </section>
+      </a>
+      <div style="margin-top: 16px"></div>
       <a class="card_link" href="/3-03Aug21-template-blog-post-stories">
         <section class="card">
           <h2>3. Template: Blog Post as Stories</h2>
@@ -83,12 +91,24 @@
         align-items: center;
       }
       h6#last_updated {
+        text-align: right;
+        margin-top: -20px;
         color: #666;
-        padding: 0;
-        margin: 0;
+        font-size: 14px;
         font-weight: 300;
-        margin-left: 10vw;
+        animation: fadeInAnimation ease 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
       }
+      @keyframes fadeInAnimation {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
       button#dark_mode_button {
         padding: 1rem;
         font-weight: 900;
@@ -117,7 +137,6 @@
         padding: 16px;
         border: 1px solid #000;
         border-radius: 4px;
-        transition: transform 0.2s ease-in-out;
         width: 100%;
       }
     </style>
