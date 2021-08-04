@@ -2,33 +2,72 @@
 <html lang="en">
   <head>
     <!-- HTML Meta Tags -->
-    <title>SV's Blog</title>
-    <meta
-      name="description"
-      content="Santosh Venkatraman is trying to describe his empty blog here"
-    />
+    <title>Santosh Venkatraman's Blog</title>
+    <meta name="description" content="Santosh Venkatraman is typing..." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://onstash.github.io/" />
+    <meta property="og:url" content="https://onstash.github.io" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="SV's Blog" />
+    <meta property="og:title" content="Santosh Venkatraman's Blog" />
     <meta
       property="og:description"
-      content="Santosh Venkatraman is trying to describe his empty blog here"
+      content="Santosh Venkatraman is typing..."
     />
-    <meta property="og:image" content="https://onstash.github.io/tehc.png" />
+    <meta
+      property="og:image"
+      content="https://onstash.github.io/hellothere.jpeg"
+    />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="onstash.github.io" />
-    <meta property="twitter:url" content="https://onstash.github.io/" />
-    <meta name="twitter:title" content="SV's Blog" />
+    <meta property="twitter:url" content="https://onstash.github.io" />
+    <meta name="twitter:title" content="Santosh Venkatraman's Blog" />
     <meta
       name="twitter:description"
-      content="Santosh Venkatraman is trying to describe his empty blog here"
+      content="Santosh Venkatraman is typing..."
     />
-    <meta name="twitter:image" content="https://onstash.github.io/tehc.png" />
+    <meta
+      name="twitter:image"
+      content="https://onstash.github.io/hellothere.jpeg"
+    />
+  </head>
+  <body>
+    <section id="main_container">
+      <h1>Santosh Venkatraman's Blog</h1>
+      <button id="dark_mode_button" onclick="toggleDarkMode()">
+        Enable Dark Mode
+      </button>
+      <div style="margin-top: 16px"></div>
+      <a class="card_link" href="/3-03Aug21-template-blog-post-stories">
+        <section class="card">
+          <h2>3. Template: Blog Post as Stories</h2>
+          <h6 id="last_updated">Last Updated: 3rd August 2021</h6>
+          <p>The Only Template to convert Your Blog Post as Stories</p>
+        </section>
+      </a>
+      <div style="margin-top: 16px"></div>
+      <a class="card_link" href="/2-27Jul21-count-hashtags-in-content">
+        <section class="card">
+          <h2>2. Count Hashtags in Your Content</h2>
+          <h6 id="last_updated">Last Updated: 3rd August 2021</h6>
+          <p>The Only Way to Count #tags in Your Content</p>
+        </section>
+      </a>
+      <div style="margin-top: 16px"></div>
+      <a class="card_link" href="/1-21Jul21-concept-blog-post-stories">
+        <section class="card">
+          <h2>1. Concept: Blog Post as Stories</h2>
+          <h6 id="last_updated">Last Updated: 21st July 2021</h6>
+          <p>
+            This is a concept I had in mind a few years ago - What if news
+            stories were presented in Stories format? I have tried the same with
+            Blog Posts.
+          </p>
+        </section>
+      </a>
+    </section>
     <!-- Styles -->
     <style>
       body {
@@ -42,6 +81,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+      h6#last_updated {
+        color: #666;
+        padding: 0;
+        margin: 0;
+        font-weight: 300;
+        margin-left: 10vw;
       }
       button#dark_mode_button {
         padding: 1rem;
@@ -92,41 +138,5 @@
         body.style.backgroundColor = updated_dark_mode ? "#000" : "#FFF";
       }
     </script>
-  </head>
-  <body>
-    <section id="main_container">
-      <h1>Santosh Venkatraman's Blog</h1>
-      <button id="dark_mode_button" onclick="toggleDarkMode()">
-        Enable Dark Mode
-      </button>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/3-03Aug21-stories-post-template">
-        <section class="card">
-          <h2>3. Template of "Concept: Blog Post as Stories"</h2>
-          <p>
-            Created the Only Template needed to create Your Stories from Your
-            Blog Posts
-          </p>
-        </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/2-27Jul21-count-hashtags-in-content">
-        <section class="card">
-          <h2>2. Count Hashtags in Your Content</h2>
-          <p>The Only Way to Count #tags in Your Content</p>
-        </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/1-21Jul21-concept-blog-post-stories">
-        <section class="card">
-          <h2>1. Concept: Blog Post as Stories</h2>
-          <p>
-            This is a concept I had in mind a few years ago - What if news
-            stories were presented in Stories format? I have tried the same with
-            Blog Posts.
-          </p>
-        </section>
-      </a>
-    </section>
   </body>
 </html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- HTML Meta Tags -->
+    <title>ASMR Submit Button Animation</title>
+    <meta
+      name="description"
+      content="ASMR Submit Button Animation"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://onstash.github.io" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="ASMR Submit Button Animation"
+    />
+    <meta
+      property="og:description"
+      content="ASMR Submit Button Animation"
+    />
+    <meta
+      property="og:image"
+      content="https://onstash.github.io/hellothere.jpeg"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="onstash.github.io" />
+    <meta property="twitter:url" content="https://onstash.github.io" />
+    <meta
+      name="twitter:title"
+      content="ASMR Submit Button Animation"
+    />
+    <meta
+      name="twitter:description"
+      content="ASMR Submit Button Animation"
+    />
+    <meta
+      name="twitter:image"
+      content="https://onstash.github.io/hellothere.jpeg"
+    />
+
+    <!-- Styles -->
+    <style>
+      :root {
+        --green: #38ac5f;
+        --black: #000000;
+        --white: #ffffff;
+      }
+      body {
+        padding: 16px;
+        transition: background-color 1.5s;
+      }
+      title {
+        text-align: center;
+      }
+
+      /* iPads (portrait and landscape) ----------- */
+      @media only screen and (min-device-width: 768px) {
+        /* Styles */
+        body {
+          width: 360px;
+          margin: auto;
+          padding: 16px;
+        }
+      }
+      section#main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h6#last_updated {
+        color: #666;
+        padding: 0;
+        margin: 0;
+        font-weight: 300;
+        margin-left: 10vw;
+      }
+
+      button {
+        height: 40px;
+        width: 130px;
+        border-radius: 40px;
+        color: var(--green);
+        background-color: var(--white);
+        border: 2px solid var(--green);
+        letter-spacing: 1px;
+        text-shadow: 0px;
+        outline: none;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+      button:active {
+        letter-spacing: 2px;
+      }
+      button:after {
+        content: "SUBMIT";
+      }
+
+      button.pressed {
+        font-size: 0px;
+        border-color: grey;
+        border-width: 3px;
+        border-left-color: var(--green);
+        animation: rotating 2s 0.25s linear infinite;
+        width: 40px;
+      }
+
+      button.pressed:after {
+        content: "";
+      }
+
+      button.validated:after {
+        content: "DONE";
+      }
+
+      button.validated {
+        font-size: 16px;
+        color: var(--white);
+        background-color: var(--green);
+      }
+
+      @keyframes rotating {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <!-- Script -->
+    <script>
+      let pressTimeout = null;
+      const onPageLoad = () => {
+        const button = document.querySelector("button");
+        const onButtonPress = () => {
+          if (button.classList.value) {
+            clearTimeout(pressTimeout);
+            button.classList.remove("validated");
+            button.classList.remove("pressed");
+            return;
+          }
+          button.classList.remove("validated");
+          button.classList.add("pressed");
+          pressTimeout = setTimeout(() => {
+            button.classList.remove("pressed");
+            button.classList.add("validated");
+          }, 2000);
+        };
+        button.onclick = onButtonPress;
+      };
+    </script>
+  </head>
+  <body onload="onPageLoad()">
+    <section id="main_container">
+      <h1>ASMR Submit Button Animation</h1>
+      <h6 id="last_updated">Last Updated: 4th August 2021</h6>
+      <button></button>
+    </section>
+  </body>
+</html>
