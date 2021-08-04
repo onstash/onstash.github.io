@@ -136,9 +136,7 @@
         cursor: pointer;
         background-color: #000;
         color: #fff;
-        border: 1px solid #fff;
-        transition: background-color 1.5s, color 0.5s, border 0.5s,
-          transform 0.5s;
+        transition: background-color 1.5s, color 0.5s;
         font-size: 16px;
       }
 
@@ -164,10 +162,10 @@
     <script>
       const body = document.querySelector("body");
       const lastUpdatedH2Tags = document.querySelectorAll("h2#last_updated");
+      const dark_mode_button = document.querySelector(
+        "button#dark_mode_button"
+      );
       function toggleDarkMode() {
-        var dark_mode_button = document.querySelector(
-          "button#dark_mode_button"
-        );
         var updated_dark_mode =
           dark_mode_button.innerHTML
             .replace(/^\s+/gim, "")
@@ -175,6 +173,7 @@
         dark_mode_button.innerHTML = updated_dark_mode
           ? "Disable Dark Mode"
           : "Enable Dark Mode";
+        dark_mode_button.style.color = updated_dark_mode ? "#000" : "#FFF";
         body.style.backgroundColor = updated_dark_mode ? "#000" : "#FFF";
         lastUpdatedH2Tags.forEach((lastUpdated) => {
           lastUpdated.classList.toggle("dark_mode");
