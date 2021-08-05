@@ -48,7 +48,7 @@
       <input id="custom-text" type="text" autofocus value="General Kenobi!" />
       <div style="margin-top: 16px"></div>
       <section id="download_share_container">
-        <a id="download"></a>
+        <button id="download"></a>
         <button id="share"></button>
       </section>
     </section>
@@ -111,8 +111,7 @@
         width: 100%;
         justify-content: space-evenly;
       }
-      a#download {
-        text-decoration: none;
+      button#download {
         height: var(--space) * 3;
         padding: var(--space);
         color: var(--white);
@@ -120,8 +119,9 @@
         border: 1px solid var(--grey);
         border-radius: 4px;
         transition: background-color 1s, border 1s;
+        font-size: var(--space);
       }
-      a#download:after {
+      button#download:after {
         content: "Download meme!";
       }
       button#share {
@@ -132,6 +132,7 @@
         border: 1px solid var(--grey);
         border-radius: 4px;
         transition: background-color 1s, border 1s;
+        font-size: var(--space);
       }
       button#share:after {
         content: "Share meme!";
@@ -143,7 +144,7 @@
       const ctx = canvas.getContext("2d");
       const inputText = document.querySelector("input#custom-text");
 
-      const downloadButton = document.querySelector("a#download");
+      const downloadButton = document.querySelector("button#download");
       const shareButton = document.querySelector("button#share");
 
       const navigatorShareAvailable =
@@ -187,8 +188,11 @@
       const onPressDownload = () => {
         try {
           const canvasUrl = canvas.toDataURL();
-          downloadButton.href = canvasUrl;
-          downloadButton.download = `mocking_spongebob_${new Date().getTime()}.png`;
+          const downloadLink = document.createElement("a");
+          downloadLink.download = `mocking_spongebob_${new Date().getTime()}.png`;
+          downloadLink.href = canvasUrl;
+          downloadLink.click();
+          downloadLink.delete;
         } catch (e) {
           console.error(e);
           window.alert("Unable to download meme");
