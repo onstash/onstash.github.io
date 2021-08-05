@@ -208,25 +208,22 @@
       };
 
       const onPressShare = async () => {
-        if (navigator.share) {
-          try {
-            const shareData = {
-              title: "Mocking Spongebob meme (by @on_stash)\n",
-              text:
-                "Create quick & simple Mocking Spongebob memes (by @on_stash)\n",
-              url:
-                window.location.href +
-                "?text=" +
-                encodeURIComponent(inputText.value),
-            };
-            const response = await navigator.share(shareData);
-            console.log("@santosh", response);
-          } catch (e) {
-            console.error(e);
-            window.confirm("Share error: " + e);
-            // disableShareButton();
-          }
+        if (!navigator.share) {
+          window.alert("Share functionality not available");
+          return;
         }
+        try {
+          const shareData = {
+            title: "Mocking Spongebob meme (by @on_stash)\n",
+            text:
+              "Create quick & simple Mocking Spongebob memes (by @on_stash)\n",
+            url:
+              window.location.href +
+              "?text=" +
+              encodeURIComponent(inputText.value),
+          };
+          await navigator.share(shareData);
+        } catch (e) {}
       };
 
       const enableDownloadButton = () => {
