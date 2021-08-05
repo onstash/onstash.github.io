@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- HTML Meta Tags -->
-    <title>Mocking Spongebob meme generator</title>
+    <title>Mocking Spongebob meme</title>
     <meta name="description" content="Uses HTML & Canvas APIs" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -12,7 +12,7 @@
       content="https://onstash.github.io/5-05-Aug-21-mocking-spongebob-meme"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mocking Spongebob meme generator" />
+    <meta property="og:title" content="Mocking Spongebob meme" />
     <meta property="og:description" content="Uses HTML & Canvas APIs" />
     <meta
       property="og:image"
@@ -26,7 +26,7 @@
       property="twitter:url"
       content="https://onstash.github.io/5-05-Aug-21-mocking-spongebob-meme"
     />
-    <meta name="twitter:title" content="Mocking Spongebob meme generator" />
+    <meta name="twitter:title" content="Mocking Spongebob meme" />
     <meta name="twitter:description" content="Uses HTML & Canvas APIs" />
     <meta
       name="twitter:image"
@@ -38,7 +38,7 @@
       id="main_container"
       data-last-updated="5th August 2021 13:23pm IST"
     >
-      <h1>Mocking Spongebob meme generator</h1>
+      <h1>Mocking Spongebob meme</h1>
       <h2 id="last_updated">Last Updated: 5th August 2021</h2>
       <div style="margin-top: 16px"></div>
       <canvas id="canvas">
@@ -185,18 +185,24 @@
       };
 
       const onPressDownload = () => {
-        const canvasUrl = canvas.toDataURL();
-        downloadButton.href = canvasUrl;
-        downloadButton.download = `mocking_spongebob_${new Date().getTime()}.png`;
+        try {
+          const canvasUrl = canvas.toDataURL();
+          downloadButton.href = canvasUrl;
+          downloadButton.download = `mocking_spongebob_${new Date().getTime()}.png`;
+        } catch (e) {
+          console.error(e);
+          window.alert("Unable to download meme");
+          disableDownloadButton();
+        }
       };
 
       const onPressShare = async () => {
         if (navigator.share) {
           try {
             const shareData = {
-              title:
-                "Mocking Spongebob meme generator generator (by @on_stash)",
-              text: "Create quick & simple Mocking Spongebob meme generator",
+              title: "Mocking Spongebob meme (by @on_stash)\n",
+              text:
+                "Create quick & simple Mocking Spongebob memes (by @on_stash)\n",
               url:
                 window.location.href +
                 "?text=" +
