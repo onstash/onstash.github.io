@@ -219,11 +219,12 @@
                 "?text=" +
                 encodeURIComponent(inputText.value),
             };
-            await navigator.share(shareData);
+            const response = await navigator.share(shareData);
+            console.log("@santosh", response);
           } catch (e) {
             console.error(e);
-            window.alert("Unable to share link");
-            disableShareButton();
+            window.confirm("Share error: " + e);
+            // disableShareButton();
           }
         }
       };
