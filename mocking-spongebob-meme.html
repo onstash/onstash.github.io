@@ -45,10 +45,17 @@
         Canvas requires a browser that supports HTML5.
       </canvas>
       <div style="margin-top: 16px"></div>
-      <input id="custom-text" type="text" autofocus value="General Kenobi!" />
+      <input
+        id="custom-text"
+        type="text"
+        autofocus
+        value="General Kenobi!"
+        minlength="1"
+        maxlength="30"
+      />
       <div style="margin-top: 16px"></div>
       <section id="download_share_container">
-        <button id="download"></a>
+        <button id="download"></button>
         <button id="share"></button>
       </section>
     </section>
@@ -270,14 +277,22 @@
 
       const calculateFontSize = (text) => {
         const textLength = text.length;
-        console.log("@santosh calculateFontSize", textLength);
+        if (textLength >= 34) {
+          return 10;
+        }
         if (textLength >= 30) {
           return 10;
         }
         if (textLength >= 24) {
           return 12;
         }
-        return 14;
+        if (textLength >= 18) {
+          return 16;
+        }
+        if (textLength >= 12) {
+          return 20;
+        }
+        return 22;
       };
 
       const drawTextOnMeme = (text) => {
