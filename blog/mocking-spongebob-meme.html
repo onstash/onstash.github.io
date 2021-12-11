@@ -9,28 +9,28 @@
     <!-- Facebook Meta Tags -->
     <meta
       property="og:url"
-      content="https://onstash.github.io/5-05-Aug-21-mocking-spongebob-meme"
+      content="https://onstash.netlify.app/5-05-Aug-21-mocking-spongebob-meme"
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Mocking Spongebob meme" />
     <meta property="og:description" content="Uses HTML & Canvas APIs" />
     <meta
       property="og:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/hellothere.jpeg"
     />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="onstash.github.io" />
+    <meta property="twitter:domain" content="onstash.netlify.app" />
     <meta
       property="twitter:url"
-      content="https://onstash.github.io/5-05-Aug-21-mocking-spongebob-meme"
+      content="https://onstash.netlify.app/5-05-Aug-21-mocking-spongebob-meme"
     />
     <meta name="twitter:title" content="Mocking Spongebob meme" />
     <meta name="twitter:description" content="Uses HTML & Canvas APIs" />
     <meta
       name="twitter:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/hellothere.jpeg"
     />
   </head>
   <body>
@@ -71,21 +71,21 @@
       body {
         padding: var(--space);
         transition: background-color 1.5s;
+        background: #fff;
+        font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
       }
       title {
         text-align: center;
       }
 
-      /* iPads (portrait and landscape) ----------- */
-      @media only screen and (min-device-width: 768px) {
-        /* Styles */
-        body {
-          width: 360px;
-          margin: auto;
-          padding: 16px;
-        }
-      }
       section#main_container {
+        max-width: 42em;
+        margin: 15px auto;
+        margin-top: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;

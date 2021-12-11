@@ -9,28 +9,28 @@
     <!-- Facebook Meta Tags -->
     <meta
       property="og:url"
-      content="https://onstash.github.io/4-04Aug21-asmr-submit-button-animation"
+      content="https://onstash.netlify.app/4-04Aug21-asmr-submit-button-animation"
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="ASMR Submit Button Animation" />
     <meta property="og:description" content="ASMR Submit Button Animation" />
     <meta
       property="og:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/hellothere.jpeg"
     />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="onstash.github.io" />
+    <meta property="twitter:domain" content="onstash.netlify.app" />
     <meta
       property="twitter:url"
-      content="https://onstash.github.io/4-04Aug21-asmr-submit-button-animation"
+      content="https://onstash.netlify.app/4-04Aug21-asmr-submit-button-animation"
     />
     <meta name="twitter:title" content="ASMR Submit Button Animation" />
     <meta name="twitter:description" content="ASMR Submit Button Animation" />
     <meta
       name="twitter:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/hellothere.jpeg"
     />
   </head>
   <body onload="onPageLoad()">
@@ -50,21 +50,21 @@
       body {
         padding: 16px;
         transition: background-color 1.5s;
+        background: #fff;
+        font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
       }
       title {
         text-align: center;
       }
 
-      /* iPads (portrait and landscape) ----------- */
-      @media only screen and (min-device-width: 768px) {
-        /* Styles */
-        body {
-          width: 360px;
-          margin: auto;
-          padding: 16px;
-        }
-      }
       section#main_container {
+        max-width: 42em;
+        margin: 15px auto;
+        margin-top: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;
