@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- HTML Meta Tags -->
+    <title>Count the Number of #Hashtags in Your Content</title>
+    <meta
+      name="description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https://onstash.netlify.app/blog/2021/07/21/count-hashtags-in-content"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Concept: Blog Post as Stories" />
+    <meta
+      property="og:description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta
+      property="og:image"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="onstash.netlify.app" />
+    <meta
+      property="twitter:url"
+      content="https://onstash.netlify.app/blog/2021/07/21/count-hashtags-in-content"
+    />
+    <meta name="twitter:title" content="Santosh Venkatraman's Blog" />
+    <meta
+      name="twitter:description"
+      content="Count the Number of #Hashtags in Your Content"
+    />
+    <meta
+      name="twitter:image"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
+    />
+  </head>
+  <body>
+    <section id="main_container">
+      <h1 id="title">Count Hashtags in Your Content</h1>
+      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
+      <div style="margin-top: 16px"></div>
+      <textarea id="content" autofocus oninput="countHashtags()"></textarea>
+      <div style="margin-top: 10px"></div>
+      <section id="hashtags_insights">
+        <h2 id="hashtags_recommended_instagram"></h2>
+        <h3 id="content_hashtags"></h3>
+      </section>
+    </section>
+    <!-- Styles -->
+    <style>
+      body {
+        padding: 16px;
+        transition: background-color 1.5s;
+        background: #fff;
+        font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+      }
+      title {
+        text-align: center;
+      }
+      h1 {
+        text-decoration: underline;
+      }
+
+      section#main_container {
+        max-width: 42em;
+        margin: 15px auto;
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h2#last_updated {
+        font-size: 12px;
+        color: #666;
+        padding: 0;
+        margin: 0;
+        font-weight: 300;
+        margin-left: 10vw;
+      }
+      textarea#content {
+        padding: 1rem;
+        width: 100%;
+        height: 10vh;
+        border: 1px solid #000;
+        border-radius: 4px;
+        outline-color: #000;
+      }
+
+      section#hashtags_insights {
+        padding: 1rem;
+        border: 1px solid #000;
+        border-radius: 4px;
+        opacity: 0;
+        transition: opacity 800ms;
+      }
+      h2#hashtags_recommended_instagram {
+        font-weight: 900;
+        font-size: 18px;
+        color: #000;
+      }
+    </style>
+    <!-- Script -->
+    <script>
+      const INSTAGRAM_RECOMMENDED_LIMIT = 30;
+      const hashtagsInsights = document.querySelector(
+        "section#hashtags_insights"
+      );
+      const hashtagsRecommendedInstagram = document.querySelector(
+        "h2#hashtags_recommended_instagram"
+      );
+      let recommendedHashtagsLoaded = false;
+      const countHashtags = () => {
+        if (!recommendedHashtagsLoaded) {
+          hashtagsRecommendedInstagram.innerText = `RECOMMENDED HASHTAGS FOR INSTAGRAM: ${INSTAGRAM_RECOMMENDED_LIMIT}`;
+          recommendedHashtagsLoaded = true;
+        }
+        const content = document.querySelector("textarea#content").value;
+        if (!content) {
+          hashtagsInsights.style.opacity = "0";
+          return;
+        }
+        hashtagsInsights.style.opacity = "1";
+        const count = content
+          .split(/\s+/gim)
+          .filter((x) => x.startsWith("#"))
+          .filter((x) => x.length > 1).length;
+
+        const contentHashtags = document.querySelector("h3#content_hashtags");
+        contentHashtags.innerText = `HASHTAGS IN YOUR CONTENT: ${count}`;
+        if (count <= INSTAGRAM_RECOMMENDED_LIMIT) {
+          contentHashtags.style.color = "#000";
+        } else if (count >= 0 && count > INSTAGRAM_RECOMMENDED_LIMIT) {
+          contentHashtags.style.color = "red";
+        }
+      };
+    </script>
+  </body>
+</html>
