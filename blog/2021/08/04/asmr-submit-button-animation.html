@@ -9,32 +9,36 @@
     <!-- Facebook Meta Tags -->
     <meta
       property="og:url"
-      content="https://onstash.github.io/4-04Aug21-asmr-submit-button-animation"
+      content="https://onstash.netlify.app/blog/2021/08/04/asmr-submit-button-animation"
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="ASMR Submit Button Animation" />
     <meta property="og:description" content="ASMR Submit Button Animation" />
     <meta
       property="og:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
     />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="onstash.github.io" />
+    <meta property="twitter:domain" content="onstash.netlify.app" />
     <meta
       property="twitter:url"
-      content="https://onstash.github.io/4-04Aug21-asmr-submit-button-animation"
+      content="https://onstash.netlify.app/blog/2021/08/04/asmr-submit-button-animation"
     />
     <meta name="twitter:title" content="ASMR Submit Button Animation" />
     <meta name="twitter:description" content="ASMR Submit Button Animation" />
     <meta
       name="twitter:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
     />
   </head>
   <body onload="onPageLoad()">
     <section id="main_container" data-last-updated="4th August 2021 9:12am IST">
+      <a href="/blog" style="text-decoration: none">
+        <h1 style="font-size: 24px; font-weight: bold">Blog Home</h1>
+      </a>
+      <div style="margin-top: 5px"></div>
       <h1>ASMR Submit Button Animation</h1>
       <h2 id="last_updated">Last Updated: 4th August 2021</h2>
       <div style="margin-top: 16px"></div>
@@ -50,21 +54,21 @@
       body {
         padding: 16px;
         transition: background-color 1.5s;
+        background: #fff;
+        font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
       }
       title {
         text-align: center;
       }
 
-      /* iPads (portrait and landscape) ----------- */
-      @media only screen and (min-device-width: 768px) {
-        /* Styles */
-        body {
-          width: 360px;
-          margin: auto;
-          padding: 16px;
-        }
-      }
       section#main_container {
+        max-width: 42em;
+        margin: 15px auto;
+
         display: flex;
         flex-direction: column;
         align-items: center;

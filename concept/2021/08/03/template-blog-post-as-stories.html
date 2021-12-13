@@ -2,50 +2,47 @@
 <html lang="en">
   <head>
     <!-- HTML Meta Tags -->
-    <title>Concept: Blog Post as Stories</title>
+    <title>Template: Blog Post as Stories</title>
     <meta
       name="description"
-      content="I thought of this idea a few years: Blog Post as Stories"
+      content="The Only Template to convert Your Blog Post as Stories"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Facebook Meta Tags -->
     <meta
       property="og:url"
-      content="https://onstash.github.io/1-21Jul21-concept-blog-post-stories"
+      content="https://onstash.netlify.app/blog/2021/08/03/template-blog-post-as-stories"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Concept: Blog Post as Stories" />
+    <meta property="og:title" content="Template: Blog Post as Stories" />
     <meta
       property="og:description"
-      content="I thought of this idea a few years: Blog Post as Stories"
+      content="The Only Template to convert Your Blog Post as Stories"
     />
     <meta
       property="og:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
     />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="onstash.github.io" />
-    <meta
-      property="twitter:url"
-      content="https://onstash.github.io/1-21Jul21-concept-blog-post-stories"
-    />
-    <meta name="twitter:title" content="Santosh Venkatraman's Blog" />
+    <meta property="twitter:domain" content="onstash.netlify.app" />
+    <meta property="twitter:url" content="https://onstash.netlify.app" />
+    <meta name="twitter:title" content="Template: Blog Post as Stories" />
     <meta
       name="twitter:description"
-      content="I thought of this idea a few years: Blog Post as Stories"
+      content="The Only Template to convert Your Blog Post as Stories"
     />
     <meta
       name="twitter:image"
-      content="https://onstash.github.io/hellothere.jpeg"
+      content="https://onstash.netlify.app/assets/hellothere.jpeg"
     />
   </head>
   <body onload="onPageLoad()">
     <section id="main_container">
-      <h1>Concept: Blog Post as Stories</h1>
-      <h2 id="last_updated">Last Updated: 21st July 2021</h2>
+      <h1>Template: Blog Post as Stories</h1>
+      <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
       <div style="margin-top: 16px"></div>
       <section id="stories_container">
         <section id="progress_bars_list_container"></section>
@@ -60,21 +57,20 @@
       body {
         padding: 16px;
         transition: background-color 1.5s;
+        background: #fff;
+        font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
       }
       title {
         text-align: center;
       }
 
-      /* iPads (portrait and landscape) ----------- */
-      @media only screen and (min-device-width: 768px) {
-        /* Styles */
-        body {
-          width: 360px;
-          margin: auto;
-          padding: 16px;
-        }
-      }
       section#main_container {
+        max-width: 42em;
+        margin: 15px auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -147,22 +143,34 @@
       const posts = [
         {
           content:
-            "A few years when I was working with Tenreads/crisp, I had this idea - News Stories - News in Stories format. Now I am extending that concept into Blog Posts in Stories format.",
+            "<Story1> This page can be saved as an HTML file and you have a template for rendering your blog post as stories",
         },
         {
-          content: `My reasoning is based on the currently popular UI to consume content - Instagram Stories, WhatsApp Status, even Facebook Story. And the fact that I can open up a story and it's an automatic slideshow which means I don't need to interact. The standard blogging format is vertical and it expects the users to scroll up and down.`,
+          content: `<Story2>`,
         },
         {
-          content:
-            "If the intial story isn't a hook that's pulling you to view the rest of stories, then it can be understood by metrics I believe. This forces the writer to improve the quality of different content sections presented to the user.",
+          content: "<Story3>",
         },
         {
-          content:
-            "Even if I want to read last parts of the story, I can quickly tap and move on",
+          content: "<Story4>",
         },
         {
-          content:
-            "And yes, Pressbait (Clickbait by News publishers as well Clickbait for mobile phones* :P), will be rampant",
+          content: "<Story5>",
+        },
+        {
+          content: "<Story6>",
+        },
+        {
+          content: "<Story7>",
+        },
+        {
+          content: "<Story8>",
+        },
+        {
+          content: "<Story9>",
+        },
+        {
+          content: "<Story10>",
         },
       ];
       let activeIndex = 0;
