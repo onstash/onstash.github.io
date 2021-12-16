@@ -62,6 +62,20 @@
         <button id="download"></button>
         <button id="share"></button>
       </section>
+      <section id="footer_links">
+        <span
+          >[Previous Post:
+          <a href="/blog/2021/08/04/asmr-submit-button-animation"
+            >ASMR Submit Button Animation</a
+          >]</span
+        >
+        <span
+          >[Next Post:
+          <a href="/blog/2021/12/14/time-to-go"
+            >Personal Update - "Time to Go"</a
+          >]</span
+        >
+      </section>
     </section>
     <!-- Styles -->
     <style>
@@ -146,6 +160,13 @@
       }
       button#share:after {
         content: "Share meme!";
+      }
+      section#footer_links {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
       }
     </style>
     <!-- Script -->
