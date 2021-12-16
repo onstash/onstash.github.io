@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://onstash.netlify.app" />
+    <meta property="og:url" content="https://onstash.netlify.app/blog" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Santosh Venkatraman's Blog" />
     <meta
@@ -22,7 +22,7 @@
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="onstash.netlify.app" />
-    <meta property="twitter:url" content="https://onstash.netlify.app" />
+    <meta property="twitter:url" content="https://onstash.netlify.app/blog" />
     <meta name="twitter:title" content="Santosh Venkatraman's Blog" />
     <meta
       name="twitter:description"
@@ -40,63 +40,40 @@
         Enable Dark Mode
       </button>
       <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/blog/2021/12/14/time-to-go">
-        <section class="card">
-          <h2>6. Time to Go</h2>
-          <h2 id="last_updated">Last Updated: 14th December 2021</h2>
-          <p>
-            Phil Jackson's infamous words after the Bulls' 2nd 3-peat in '98
-          </p>
+      <ul>
+        <section class="blog_post">
+          <a href="/blog/2021/12/14/time-to-go"><li>Time to Go</li></a>
+          <p>-- 14th December 2021</p>
         </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/tool/2021/08/05/mocking-spongebob-meme">
-        <section class="card">
-          <h2>5. Create Mocking Spongebob memes</h2>
-          <h2 id="last_updated">Last Updated: 5th August 2021</h2>
-          <p>cReAtE mOcKiNg SpOnGeBoB mEmEs</p>
+        <section class="blog_post">
+          <a href="/tool/2021/08/05/mocking-spongebob-meme"
+            ><li>Create Mocking Spongebob memes</li></a
+          >
+          <p>-- 5th August 2021</p>
         </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/blog/2021/08/04/asmr-submit-button-animation">
-        <section class="card">
-          <h2>4. ASMR Submit Button Animation</h2>
-          <h2 id="last_updated">Last Updated: 4th August 2021</h2>
-          <p>The Only Template to convert Your Blog Post as Stories</p>
+        <section class="blog_post">
+          <a href="/blog/2021/08/04/asmr-submit-button-animation"
+            ><li>ASMR Submit Button Animation</li></a
+          >
+          <p>-- 4th August 2021</p>
         </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a
-        class="card_link"
-        href="/concept/2021/08/03/template-blog-post-as-stories"
-      >
-        <section class="card">
-          <h2>3. Template: Blog Post as Stories</h2>
-          <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
-          <p>The Only Template to convert Your Blog Post as Stories</p>
+        <section class="blog_post">
+          <a href="/concept/2021/08/03/template-blog-post-as-stories"
+            ><li>Template: Blog Post as Stories</li></a
+          >
+          <p>-- 3rd August 2021</p>
         </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/tool/2021/07/27/count-hashtags-in-content">
-        <section class="card">
-          <h2>2. Count Hashtags in Your Content</h2>
-          <h2 id="last_updated">Last Updated: 3rd August 2021</h2>
-          <p>The Only Way to Count #tags in Your Content</p>
+        <section class="blog_post">
+          <a href="/tool/2021/07/27/count-hashtags-in-content"
+            ><li>Count Hashtags in Your Content</li></a
+          >
+          <p>-- 27th July 2021</p>
         </section>
-      </a>
-      <div style="margin-top: 16px"></div>
-      <a class="card_link" href="/concept/2021/07/21/blog-post-as-stories">
-        <section class="card">
-          <h2>1. Concept: Blog Post as Stories</h2>
-          <h2 id="last_updated">Last Updated: 21st July 2021</h2>
-          <p>
-            This is a concept I had in mind a few years ago - What if news
-            stories were presented in Stories format? I have tried the same with
-            Blog Posts.
-          </p>
+        <section class="blog_post">
+          <a href=/concept/2021/07/21/blog-post-as-stories><li>Concept: Blog Post as Stories</li></a>
+          <p>-- 21st July 2021</p>
         </section>
-      </a>
-    </section>
+      </ul>
     <!-- Styles -->
     <style>
       body {
@@ -144,6 +121,14 @@
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
       }
+
+      section.blog_post {
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
       @keyframes fadeOutAnimation {
         from {
           opacity: 1;
@@ -164,15 +149,6 @@
         transition: background-color 1.5s, color 0.5s, border 0.5s,
           transform 0.5s;
         font-size: 16px;
-      }
-
-      a.card_link {
-        text-decoration: none;
-        color: #000;
-        padding: 16px;
-        border: 1px solid #000;
-        border-radius: 4px;
-        width: 100%;
       }
     </style>
     <!-- Script -->
